@@ -1,20 +1,31 @@
 #!/usr/bin/env node
-var api= require('marvel-api')
 var program = require('commander')
-var colors = require('colors')
-var Marvel = require('./marvel.js')
+var Avengers = require('./avengers')
+
 
 program
   .version('0.1.0')
-  .option('-f, --first100', 'Give  me first 100 marvel characters')
+  .option('-go, --getAvengers', 'Get Avengers')
+  .option('-gs, --getSpiderman', 'Get Spiderman')
   .parse(process.argv);
 
-if (program.first100) {
-  var marvel = new Marvel( {
+if(program.getSpiderman) {
+  var spiderman = new Avengers({
+   publicKey : '3d82e91fbd3d89a2a32319235b3aa3b2',
+   privateKey : 'aa9a71353466ac3df782c0cfd95e2a9454517ce1'
+  })
+
+  spiderman.getSpiderMan()
+}
+
+if (program.getAvengers) {
+  var avengers = new Avengers({
     publicKey : '3d82e91fbd3d89a2a32319235b3aa3b2',
     privateKey : 'aa9a71353466ac3df782c0cfd95e2a9454517ce1'
     })
-  marvel.getFirst100()  
+  avengers.assemble(function(avengers){
+    console.log(avengers)
+  })  
 } 
 
 
